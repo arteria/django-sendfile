@@ -15,6 +15,8 @@ def sendfile(request, filename, **kwargs):
     response['X-Accel-Redirect'] = url.encode('utf-8')
     response['Content-Length'] = statobj.st_size
     f.write("filename: %s url: %s\n" %(str(filename), str(url)))
+    f.write("response: %s \n" %(str(response))
+
     return response
 """
 
