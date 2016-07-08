@@ -5,14 +5,16 @@ import mimetypes
 import os
 
 def sendfile(request, filename, **kwargs):
+    f = open("/tmp/sendfile.log", "a")
     response = HttpResponse()
     url = _convert_file_to_url(filename)
     statobj = os.stat(filename)
-    mimetype, encoding = mimetypes.guess_type(field_file.path)
+    mimetype, encoding = mimetypes.guess_type(filename)
     mimetype = mimetype or 'application/octet-stream'
     response['Content-Type'] = mimetype
     response['X-Accel-Redirect'] = url.encode('utf-8')
     response['Content-Length'] = statobj.st_size
+    f.write("filename: %s url: %s\n" %(str(filename), str(url)))
     return response
 """
 
