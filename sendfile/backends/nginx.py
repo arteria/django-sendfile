@@ -1,14 +1,16 @@
 from __future__ import absolute_import
 from django.http import HttpResponse
 from ._internalredirect import _convert_file_to_url
-
+import mimetypes
 import os
 
 def sendfile(request, filename, **kwargs):
     response = HttpResponse()
     url = _convert_file_to_url(filename)
     statobj = os.stat(filename)
-
+    mimetype, encoding = mimetypes.guess_type(field_file.path)
+    mimetype = mimetype or 'application/octet-stream'
+    response['Content-Type'] = mimetype
     response['X-Accel-Redirect'] = url.encode('utf-8')
     response['Content-Length'] = statobj.st_size
     return response
