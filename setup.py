@@ -6,7 +6,7 @@ except ImportError:
     from distutils.command.build_py import build_py
 
 
-version = __import__('sendfile').__version__ + ".post6"
+version = __import__('sendfile').__version__ + ".post7"
 
 
 setup(

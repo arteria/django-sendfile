@@ -5,7 +5,7 @@ import mimetypes
 import os
 
 def sendfile(request, filename, **kwargs):
-    f = open("/tmp/sendfile.log", "a")
+    """f = open("/tmp/sendfile.log", "a")
     response = HttpResponse()
     url = _convert_file_to_url(filename)
     statobj = os.stat(filename)
@@ -16,6 +16,12 @@ def sendfile(request, filename, **kwargs):
     response['Content-Length'] = statobj.st_size
     f.write("filename: %s url: %s\n" %(str(filename), str(url)))
     f.write("response: %s \n" %(str(response)))
+    """
+    statobj = os.stat(filename)
+    url = _convert_file_to_url(filename)
+    response = HttpResponse()
+    response['Content-Length'] = statobj.st_size
+    response['X-Accel-Redirect'] = url.encode('utf-8')
 
     return response
 """
