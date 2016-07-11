@@ -4,7 +4,16 @@ from ._internalredirect import _convert_file_to_url
 import mimetypes
 import os
 
+
+# https://docs.djangoproject.com/en/dev/ref/request-response/#fileresponse-objects
+from django.http import FileResponse
+
+
 def sendfile(request, filename, **kwargs):
+    if filename.endswith(".pdf"):
+        response = FileResponse(open(filename, 'rb'))
+            return response
+        
     """f = open("/tmp/sendfile.log", "a")
     response = HttpResponse()
     url = _convert_file_to_url(filename)
